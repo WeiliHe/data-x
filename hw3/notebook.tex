@@ -1,0 +1,1339 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pylab} \PY{k}{import} \PY{n}{rcParams}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model} \PY{k}{as} \PY{n}{lm}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}digits}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{digits}\PY{o}{=} \PY{n}{load\PYZus{}digits}\PY{p}{(}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{,}\PYZbs{}
+                                    \PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.20}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{gray}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} <matplotlib.image.AxesImage at 0x13c925daac8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} train the model l1 regularization}
+        \PY{c+c1}{\PYZsh{} define the regulation strength}
+        \PY{n}{alphas} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{} define number of fold}
+        \PY{n}{three\PYZus{}fold\PYZus{}cv} \PY{o}{=} \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} define the accuracies vectors}
+        \PY{n}{accuracies\PYZus{}l1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{alphas}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} loop through the alphas}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{alpha} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{alphas}\PY{p}{)}\PY{p}{:}
+        \PY{c+c1}{\PYZsh{}     print(alpha)}
+            \PY{n}{logreg\PYZus{}L1} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=} \PY{n}{alpha}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}     it will automatically round it for you?}
+            \PY{n}{acc} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{c+c1}{\PYZsh{} Fit each fold using the other two as training data}
+            \PY{k}{for} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{n}{test\PYZus{}index} \PY{o+ow}{in} \PY{n}{three\PYZus{}fold\PYZus{}cv}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x\PYZus{}fold\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}
+                \PY{n}{y\PYZus{}fold\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}
+                \PY{n}{x\PYZus{}fold\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                \PY{n}{y\PYZus{}fold\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                    
+                \PY{n}{logreg\PYZus{}L1}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}fold\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}fold\PYZus{}train}\PY{p}{)}
+                \PY{n}{y\PYZus{}fold\PYZus{}predicted} \PY{o}{=} \PY{n}{logreg\PYZus{}L1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}fold\PYZus{}test}\PY{p}{)}
+                \PY{n}{acc} \PY{o}{+}\PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}fold\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}fold\PYZus{}predicted}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Average RMSE over the 3 folds for alpha\PYZus{}i}
+            \PY{n}{accuracies\PYZus{}l1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{acc} \PY{o}{/} \PY{l+m+mi}{3}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} train the model l2 regularization}
+        \PY{c+c1}{\PYZsh{} define the regulation strength}
+        \PY{c+c1}{\PYZsh{} alphas = np.arange(1, 200, 1)}
+        \PY{c+c1}{\PYZsh{} define number of fold}
+        \PY{n}{three\PYZus{}fold\PYZus{}cv} \PY{o}{=} \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} define the accuracies vectors}
+        \PY{n}{accuracies\PYZus{}l2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{alphas}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} loop through the alphas}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{alpha} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{alphas}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{logreg\PYZus{}L2} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=} \PY{n}{alpha}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}     it will automatically round it for you?}
+            \PY{n}{acc} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{c+c1}{\PYZsh{} Fit each fold using the other two as training data}
+            \PY{k}{for} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{n}{test\PYZus{}index} \PY{o+ow}{in} \PY{n}{three\PYZus{}fold\PYZus{}cv}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x\PYZus{}fold\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}
+                \PY{n}{y\PYZus{}fold\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}
+                \PY{n}{x\PYZus{}fold\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                \PY{n}{y\PYZus{}fold\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                    
+                \PY{n}{logreg\PYZus{}L2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}fold\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}fold\PYZus{}train}\PY{p}{)}
+                \PY{n}{y\PYZus{}fold\PYZus{}predicted} \PY{o}{=} \PY{n}{logreg\PYZus{}L2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}fold\PYZus{}test}\PY{p}{)}
+                \PY{n}{acc} \PY{o}{+}\PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}fold\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}fold\PYZus{}predicted}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Average RMSE over the 3 folds for alpha\PYZus{}i}
+            \PY{n}{accuracies\PYZus{}l2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{acc} \PY{o}{/} \PY{l+m+mi}{3}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} get the optimal for l1}
+        \PY{n}{optimal\PYZus{}alpha\PYZus{}l1} \PY{o}{=} \PY{n}{alphas}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{accuracies\PYZus{}l1}\PY{p}{)}\PY{p}{]}
+        \PY{n}{logreg\PYZus{}L1\PYZus{}opt} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=} \PY{n}{optimal\PYZus{}alpha\PYZus{}l1}\PY{p}{)}
+        \PY{n}{logreg\PYZus{}L1\PYZus{}opt}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n}{y\PYZus{}predicted\PYZus{}l1} \PY{o}{=} \PY{n}{logreg\PYZus{}L1\PYZus{}opt}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+        \PY{n}{score\PYZus{}l1} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}predicted\PYZus{}l1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} get the optimal for l2}
+        \PY{n}{optimal\PYZus{}alpha\PYZus{}l2} \PY{o}{=} \PY{n}{alphas}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{accuracies\PYZus{}l2}\PY{p}{)}\PY{p}{]}
+        \PY{n}{logreg\PYZus{}L2\PYZus{}opt} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=} \PY{n}{optimal\PYZus{}alpha\PYZus{}l2}\PY{p}{)}
+        \PY{n}{logreg\PYZus{}L2\PYZus{}opt}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n}{y\PYZus{}predicted\PYZus{}l2} \PY{o}{=} \PY{n}{logreg\PYZus{}L2\PYZus{}opt}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+        \PY{n}{score\PYZus{}l2} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}predicted\PYZus{}l2}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal c for l1:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{optimal\PYZus{}alpha\PYZus{}l1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal c for l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{optimal\PYZus{}alpha\PYZus{}l2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+optimal c for l1: 0.065512855686 optimal c for l2 0.0232995181052
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} draw the relation between regularization strength and the accuracy}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{alphas}\PY{p}{,} \PY{n}{accuracies\PYZus{}l1}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{alphas}\PY{p}{,} \PY{n}{accuracies\PYZus{}l2}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Log(c) (regularization strength)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.legend.Legend at 0x13c925c00b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{conclusion}{%
+\subsubsection{Conclusion}\label{conclusion}}
+
+    As we see in the plot above, for l1 regularization, the peaks appears at
+c = 0.06. For l2 regularization, the peak appears at about c = 0.02.
+They are near \(10^{-2}\)
+
+Therefore, I would choose c = \(10^{-2}\) as the regularization strength
+
+    \hypertarget{part-2}{%
+\section{Part 2}\label{part-2}}
+
+    \hypertarget{section}{%
+\subsection{2.1}\label{section}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{division}\PY{p}{,} \PY{n}{print\PYZus{}function}\PY{p}{,}\PY{n}{unicode\PYZus{}literals}
+         \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         \PY{k+kn}{from} \PY{n+nn}{graph\PYZus{}vis} \PY{k}{import} \PY{n}{show\PYZus{}graph} \PY{k}{as} \PY{n}{sg}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Define hyperparameters and input size}
+         
+         \PY{n}{n\PYZus{}inputs} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}  \PY{c+c1}{\PYZsh{} MNIST}
+         \PY{n}{n\PYZus{}outputs} \PY{o}{=} \PY{l+m+mi}{10}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Start}
+         \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{n}{shape} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{n}{n\PYZus{}inputs}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} correct answers}
+         \PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{n}{n\PYZus{}outputs}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} None, because we don\PYZsq{}t specify how many examples we\PYZsq{}ll look at}
+         
+         \PY{n}{W} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}inputs}\PY{p}{,} \PY{n}{n\PYZus{}outputs}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} number of weights, why is 10 here? only 1 layer?}
+         \PY{n}{b} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}outputs}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} number of bias terms}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{y\PYZus{}hat} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{W}\PY{p}{)} \PY{o}{+} \PY{n}{b}\PY{p}{)} 
+         \PY{c+c1}{\PYZsh{} define what we\PYZsq{}ll take the softmax activation on}
+         
+         \PY{c+c1}{\PYZsh{} Notice order on x and W (dimensions must match)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} define loss function}
+         \PY{c+c1}{\PYZsh{} Cross entropy}
+         \PY{n}{ce} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}sum}\PY{p}{(} \PY{n}{y}\PY{o}{*} \PY{n}{tf}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{y\PYZus{}hat}\PY{p}{)}\PY{p}{,}\PY{n}{reduction\PYZus{}indices}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ce} \PY{c+c1}{\PYZsh{} sum over the columns to get cost for every training example}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} <tf.Tensor 'Mean:0' shape=() dtype=float32>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{traininng\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}
+         \PY{n}{train\PYZus{}step} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{ce}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{execution}{%
+\subsubsection{execution}\label{execution}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{gray}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} <matplotlib.image.AxesImage at 0x13c980df9b0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} change the real value shape, say 5, to [0,0,0,0,1,0...]}
+         \PY{k}{def} \PY{n+nf}{change\PYZus{}shape}\PY{p}{(}\PY{n}{y\PYZus{}trainn}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{n\PYZus{}outputs}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}new\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}outputs}\PY{p}{)}\PY{p}{)}
+             \PY{n}{y\PYZus{}new\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}outputs}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{num} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y\PYZus{}new\PYZus{}train}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{num}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{num} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y\PYZus{}new\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{num}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{k}{return} \PY{n}{y\PYZus{}new\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}new\PYZus{}test}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k}{def} \PY{n+nf}{new\PYZus{}batch}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     shuffle the index}
+             \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     print(index)}
+             \PY{n}{x\PYZus{}batches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{y\PYZus{}batches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+             \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+         
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x\PYZus{}batches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{j}\PY{o}{*}\PY{n}{batch\PYZus{}size}\PY{p}{:} \PY{n}{j}\PY{o}{*}\PY{n}{batch\PYZus{}size}\PY{o}{+}\PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{y\PYZus{}batches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{j}\PY{o}{*}\PY{n}{batch\PYZus{}size}\PY{p}{:} \PY{n}{j}\PY{o}{*}\PY{n}{batch\PYZus{}size}\PY{o}{+}\PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{)}
+                 
+         \PY{c+c1}{\PYZsh{}     batch\PYZus{}idx=index[:batch\PYZus{}size]}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{x\PYZus{}batches}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{y\PYZus{}batches}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     return x\PYZus{}train[batch\PYZus{}idx,:] y\PYZus{}train[batch\PYZus{}idx,:]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} monitor accuracy    }
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{eval}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{correct\PYZus{}prediction} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y\PYZus{}hat}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct\PYZus{}prediction}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} tf.summary.scalar(\PYZsq{}accuracy\PYZsq{}, accuracy)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{train\PYZus{}writer1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{FileWriter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logs/train1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{graph}\PY{p}{)}
+         \PY{n}{test\PYZus{}writer1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{FileWriter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logs/test1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{merged} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{merge\PYZus{}all}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}softmax}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+             \PY{n}{saver} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{Saver}\PY{p}{(}\PY{p}{)}
+         
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+                 \PY{n}{init}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{200}
+                 \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{100}
+                 \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}
+                 \PY{n}{n\PYZus{}outputs} \PY{o}{=} \PY{l+m+mi}{10}
+                 \PY{n}{acc\PYZus{}trains} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{acc\PYZus{}vals} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+                 \PY{n}{y\PYZus{}new\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}new\PYZus{}test} \PY{o}{=} \PY{n}{change\PYZus{}shape}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{n\PYZus{}outputs}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}         x\PYZus{}train\PYZus{}sub, x\PYZus{}val, y\PYZus{}train\PYZus{}sub, y\PYZus{}val = train\PYZus{}test\PYZus{}split(x\PYZus{}train,\PYZbs{}}
+         \PY{c+c1}{\PYZsh{}                                 y\PYZus{}new\PYZus{}train, test\PYZus{}size=0.20, random\PYZus{}state=0)}
+         \PY{c+c1}{\PYZsh{}         print(y\PYZus{}train.shape)}
+                 \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}     get the number of iterations}
+                     \PY{n}{iterations} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{n}{batch\PYZus{}size}
+             \PY{c+c1}{\PYZsh{}         get the batches}
+                     \PY{n}{x\PYZus{}batches}\PY{p}{,} \PY{n}{y\PYZus{}batches} \PY{o}{=} \PY{n}{new\PYZus{}batch}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}new\PYZus{}train}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}
+         
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} get batches of training data}
+                     \PY{c+c1}{\PYZsh{} we don\PYZsq{}t show everything to the network at once}
+                     \PY{c+c1}{\PYZsh{} what is the batch here?}
+                         \PY{n}{x\PYZus{}batch}\PY{p}{,} \PY{n}{y\PYZus{}batch} \PY{o}{=} \PY{n}{x\PYZus{}batches}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}batches}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{}         print(batch\PYZus{}xs)}
+         \PY{c+c1}{\PYZsh{}                 print(x\PYZus{}batch.shape, y\PYZus{}batch.shape)}
+                         \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{train\PYZus{}step}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{n}{x\PYZus{}batch}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}batch}\PY{p}{\PYZcb{}}\PY{p}{)}
+                     \PY{n}{acc\PYZus{}train} \PY{o}{=} \PY{n}{accuracy}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}new\PYZus{}train}\PY{p}{\PYZcb{}}\PY{p}{)}
+                     \PY{n}{acc\PYZus{}val} \PY{o}{=} \PY{n}{accuracy}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}new\PYZus{}test}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}             acc\PYZus{}train = acc(x\PYZus{}batch, y\PYZus{}batch)}
+         \PY{c+c1}{\PYZsh{}             acc\PYZus{}val = acc(x\PYZus{}val, y\PYZus{}val)}
+         \PY{c+c1}{\PYZsh{}             print(epoch, \PYZdq{}Train accuracy:\PYZdq{}, acc\PYZus{}train, \PYZdq{}Val accuracy:\PYZdq{}, acc\PYZus{}val)}
+         
+                     \PY{n}{acc\PYZus{}trains}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{acc\PYZus{}train}\PY{p}{)}
+                     \PY{n}{acc\PYZus{}vals}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{acc\PYZus{}val}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}         tensor board recording}
+                     \PY{n}{train\PYZus{}summary} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Summary}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{train\PYZus{}summary}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{simple\PYZus{}value}\PY{o}{=}\PY{n}{acc\PYZus{}train}\PY{p}{)}
+                     \PY{n}{train\PYZus{}writer1}\PY{o}{.}\PY{n}{add\PYZus{}summary}\PY{p}{(}\PY{n}{train\PYZus{}summary}\PY{p}{,} \PY{n}{epoch}\PY{p}{)}
+                     \PY{n}{train\PYZus{}writer1}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{test\PYZus{}summary} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Summary}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{test\PYZus{}summary}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{simple\PYZus{}value}\PY{o}{=}\PY{n}{acc\PYZus{}val}\PY{p}{)}
+                     \PY{n}{test\PYZus{}writer1}\PY{o}{.}\PY{n}{add\PYZus{}summary}\PY{p}{(}\PY{n}{test\PYZus{}summary}\PY{p}{,} \PY{n}{epoch}\PY{p}{)}
+                     \PY{n}{test\PYZus{}writer1}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{}train\PYZus{}writer1.add\PYZus{}summary(acc\PYZus{}train, epoch)}
+                     \PY{c+c1}{\PYZsh{}test\PYZus{}writer1.add\PYZus{}summary(acc\PYZus{}val, epoch)}
+             \PY{k}{return} \PY{n}{acc\PYZus{}trains}\PY{p}{,} \PY{n}{acc\PYZus{}vals}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{acc\PYZus{}trains}\PY{p}{,} \PY{n}{acc\PYZus{}vals} \PY{o}{=} \PY{n}{run\PYZus{}softmax}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{accuracy-plot-and-the-network-graph}{%
+\subsubsection{Accuracy plot and the network
+graph}\label{accuracy-plot-and-the-network-graph}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} plot the accuracies against the epochs}
+         \PY{n}{arr\PYZus{}epochs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.7}\PY{p}{,}\PY{l+m+mf}{1.05}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arr\PYZus{}epochs}\PY{p}{,} \PY{n}{acc\PYZus{}trains}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arr\PYZus{}epochs}\PY{p}{,} \PY{n}{acc\PYZus{}vals}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{validation accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of epochs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} <matplotlib.legend.Legend at 0x13c9913e828>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{sg}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \hypertarget{part-2.2}{%
+\subsubsection{Part 2.2}\label{part-2.2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} Define hyperparameters and input size}
+         \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.20}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{n\PYZus{}inputs} \PY{o}{=} \PY{l+m+mi}{64}  
+         \PY{n}{n\PYZus{}hidden1} \PY{o}{=} \PY{l+m+mi}{300}
+         \PY{n}{n\PYZus{}hidden2} \PY{o}{=} \PY{l+m+mi}{200}
+         \PY{n}{n\PYZus{}hidden3} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{n\PYZus{}outputs} \PY{o}{=} \PY{l+m+mi}{10}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} Reset graph}
+         \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} Placeholders for data (inputs and targets)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,} \PY{n}{n\PYZus{}inputs}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{int64}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} Define neuron layers (ReLU in hidden layers)}
+         \PY{c+c1}{\PYZsh{} We\PYZsq{}ll take care of Softmax for output with loss function}
+         
+         \PY{k}{def} \PY{n+nf}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{n\PYZus{}neurons}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} X input to neuron}
+             \PY{c+c1}{\PYZsh{} number of neurons for the layer}
+             \PY{c+c1}{\PYZsh{} name of layer}
+             \PY{c+c1}{\PYZsh{} pass in eventual activation function}
+             
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{n\PYZus{}inputs} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} initialize weights to prevent vanishing / exploding gradients}
+                 \PY{n}{stddev} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n\PYZus{}inputs}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} what is this for?}
+                 \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{truncated\PYZus{}normal}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}inputs}\PY{p}{,} \PY{n}{n\PYZus{}neurons}\PY{p}{)}\PY{p}{,} \PY{n}{stddev}\PY{o}{=}\PY{n}{stddev}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Initialize weights for the layer}
+                 \PY{n}{W} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{init}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weights}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} biases}
+                 \PY{n}{b} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}neurons}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Output from every neuron}
+                 \PY{n}{Z} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{W}\PY{p}{)} \PY{o}{+} \PY{n}{b}
+                 \PY{k}{if} \PY{n}{activation} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{activation}\PY{p}{(}\PY{n}{Z}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{Z}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{} Define the hidden layers}
+         \PY{c+c1}{\PYZsh{} is\PYZus{}training = tf.placeholder(tf.bool, shape=(), name = \PYZdq{}is\PYZus{}training\PYZdq{})}
+         \PY{c+c1}{\PYZsh{} keep\PYZus{}prob = 0.9}
+         \PY{c+c1}{\PYZsh{} define the drop out ratio}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dnn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{hidden1} \PY{o}{=} \PY{n}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{n\PYZus{}hidden1}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hidden1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{tanh}\PY{p}{)}
+             \PY{n}{dropout1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{hidden1}\PY{p}{,} \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+             \PY{n}{hidden2} \PY{o}{=} \PY{n}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{dropout1}\PY{p}{,} \PY{n}{n\PYZus{}hidden2}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hidden2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PYZbs{}
+                                    \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{tanh}\PY{p}{)}
+             \PY{n}{dropout2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{hidden2}\PY{p}{,} \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+             \PY{n}{hidden3} \PY{o}{=} \PY{n}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{dropout2}\PY{p}{,} \PY{n}{n\PYZus{}hidden3}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hidden3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PYZbs{}
+                                    \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{tanh}\PY{p}{)}
+             \PY{n}{dropout3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{hidden3}\PY{p}{,} \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+             \PY{n}{logits} \PY{o}{=} \PY{n}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{dropout3}\PY{p}{,} \PY{n}{n\PYZus{}outputs}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{outputs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{} Define loss function (that also optimizes Softmax for output):}
+         
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} logits are from the last output of the dnn}
+             \PY{n}{xentropy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sparse\PYZus{}softmax\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{n}{y}\PY{p}{,}
+                                                                       \PY{n}{logits}\PY{o}{=}\PY{n}{logits}\PY{p}{)}
+             \PY{n}{loss} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{xentropy}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} Training step with Gradient Descent}
+         
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}
+         
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{optimizer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+             \PY{n}{training\PYZus{}op} \PY{o}{=} \PY{n}{optimizer}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{loss}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{} Evaluation to see accuracy}
+         
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{eval}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     what is this for}
+             \PY{n}{correct} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{in\PYZus{}top\PYZus{}k}\PY{p}{(}\PY{n}{logits}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{train-step}{%
+\subsubsection{train step}\label{train-step}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{train\PYZus{}writer2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{FileWriter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logs/train2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{graph}\PY{p}{)}
+         \PY{n}{test\PYZus{}writer2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{FileWriter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logs/test2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{merged} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{merge\PYZus{}all}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+         \PY{n}{saver} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{Saver}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{acc\PYZus{}trains2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{acc\PYZus{}vals2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{n\PYZus{}outputs} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{init}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     why here works, but the upper one does not.}
+         
+             
+             \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}     get the number of iterations}
+                 \PY{n}{iterations} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{n}{batch\PYZus{}size}
+             \PY{c+c1}{\PYZsh{}         get the batches}
+                 \PY{n}{x\PYZus{}batches}\PY{p}{,} \PY{n}{y\PYZus{}batches} \PY{o}{=} \PY{n}{new\PYZus{}batch}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}
+         
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} get batches of training data}
+                     \PY{c+c1}{\PYZsh{} we don\PYZsq{}t show everything to the network at once}
+                     \PY{c+c1}{\PYZsh{} what is the batch here?}
+                     \PY{n}{x\PYZus{}batch}\PY{p}{,} \PY{n}{y\PYZus{}batch} \PY{o}{=} \PY{n}{x\PYZus{}batches}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}batches}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{}         print(batch\PYZus{}xs)}
+         \PY{c+c1}{\PYZsh{}                 print(x\PYZus{}batch.shape, y\PYZus{}batch.shape)}
+         \PY{c+c1}{\PYZsh{}           define the drop out ratio}
+                     \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{training\PYZus{}op}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{x\PYZus{}batch}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}batch}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{l+m+mf}{0.9}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{acc\PYZus{}train} \PY{o}{=} \PY{n}{accuracy}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{acc\PYZus{}val} \PY{o}{=} \PY{n}{accuracy}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{\PYZcb{}}\PY{p}{)}    
+         \PY{c+c1}{\PYZsh{}         print(epoch, \PYZdq{}Train accuracy:\PYZdq{}, acc\PYZus{}train, \PYZdq{}Val accuracy:\PYZdq{}, acc\PYZus{}val)}
+         \PY{c+c1}{\PYZsh{}      tensor board}
+                 \PY{n}{train\PYZus{}summary} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Summary}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{train\PYZus{}summary}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{simple\PYZus{}value}\PY{o}{=}\PY{n}{acc\PYZus{}train}\PY{p}{)}
+                 \PY{n}{train\PYZus{}writer2}\PY{o}{.}\PY{n}{add\PYZus{}summary}\PY{p}{(}\PY{n}{train\PYZus{}summary}\PY{p}{,} \PY{n}{epoch}\PY{p}{)}
+                 \PY{n}{train\PYZus{}writer2}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{test\PYZus{}summary} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Summary}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{test\PYZus{}summary}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{simple\PYZus{}value}\PY{o}{=}\PY{n}{acc\PYZus{}val}\PY{p}{)}
+                 \PY{n}{test\PYZus{}writer2}\PY{o}{.}\PY{n}{add\PYZus{}summary}\PY{p}{(}\PY{n}{test\PYZus{}summary}\PY{p}{,} \PY{n}{epoch}\PY{p}{)}
+                 \PY{n}{test\PYZus{}writer2}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{n}{acc\PYZus{}trains2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{acc\PYZus{}train}\PY{p}{)}
+                 \PY{n}{acc\PYZus{}vals2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{acc\PYZus{}val}\PY{p}{)}
+             \PY{n}{save\PYZus{}path} \PY{o}{=} \PY{n}{saver}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./my\PYZus{}model\PYZus{}final.ckpt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} save model}
+\end{Verbatim}
+
+
+    \hypertarget{accuracy-plot-and-the-network-graph}{%
+\subsubsection{Accuracy plot and the network
+graph}\label{accuracy-plot-and-the-network-graph}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} plot the accuracies against the epochs}
+         \PY{n}{arr\PYZus{}epochs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{1.05}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arr\PYZus{}epochs}\PY{p}{,} \PY{n}{acc\PYZus{}trains2}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arr\PYZus{}epochs}\PY{p}{,} \PY{n}{acc\PYZus{}vals2}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{validation accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of epochs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} <matplotlib.legend.Legend at 0x13c997ea748>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{sg}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \hypertarget{comparison}{%
+\subsubsection{Comparison}\label{comparison}}
+
+The Dense Neural Net is much more complicated than the multiclass
+logistic regression.
+
+The complexity for Dense Neural Net:
+
+weights = 64\emph{300 + 300}200 + 200\emph{100 + 100}10 = 100200
+
+biases = 300 + 200 + 100 + 10 = 710
+
+total = 100910
+
+The complexity for the multiclass logistic regression:
+
+weights = 64*10 = 640
+
+biases = 10
+
+total = 650
+
+    \hypertarget{part-3}{%
+\subsection{Part 3}\label{part-3}}
+
+    \hypertarget{section}{%
+\subsection{3.1}\label{section}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+         \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{11.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}49}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.jpeg}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \hypertarget{neuron-saturation}{%
+\subsection{Neuron Saturation}\label{neuron-saturation}}
+
+Neuron saturation means activation functions take on values that are
+close to the boundaries of this range.
+
+If we use the activation function like Sigmoid or Tanh, when the input
+value is close to the boundaries, say, 0 or 1(as we see in the figure
+above), the gradient \(\frac{\partial{y_j}}{\partial{x_j}}\) would
+diminish (near 0) when doing the back propogation. Therefore, if the
+gradient is very small, the multiplication would be near 0. The moment
+that happens, the learning process stops and the weights stop updating
+with the iterations.
+
+If the network is absolutely correct on all inputs and does not need to
+change, then saturation would be ok. But if the neurons were wrong, it
+becomes a big problem. This is especially relevant at initialization.
+
+    \hypertarget{batch-normalisation}{%
+\subsubsection{Batch normalisation}\label{batch-normalisation}}
+
+Batch normalization is a technique for imporving the performance and
+stability of neural networks, and also makes more sophisticated deep
+learning architectures work in practice.
+
+The way to do this is to normalise the inputs of each layer so they have
+a mean output activation of zero and stadnard deviation of one. The
+method is shown as below: \[
+\mu_{B} = \frac{1}{m}\sum_{i=1}^{m} x_i      \quad mini-batch-mean 
+\] \[
+\sigma_{B}^{2} = \frac{1}{m}\sum_{i=1}^{m} (x_i - \mu_{B})^2  \quad mini-batch-variace
+\] \[
+\hat{x_i} = \frac{x_i - \mu_{B}}{\sqrt{\sigma_{B}^{2}+\epsilon}}   \quad normalize
+\] \[
+y_i = \gamma\sigma_{B}^{2} + \beta = BN_{\gamma,\beta}(x_i)  \quad sacle- and-hift
+\]
+
+How does the batch normalization help:
+
+The nature of neural net is to study the data distribution, once the
+distribution of the training data is different from the test data, then
+the generality would decreased a lot. Besides, once the distribution of
+each training batch set is differnt, then the network has to learn it in
+each iteration, this would greatly slow down the training speed, that's
+why we need to do the batch normalization.
+
+The neural net training is a very complicated process. Minor change in
+the first few layers can accumulate in the next few layers and magnify a
+lot. For example, the coefficents in the first layer keep changing
+during the process, the coefficients in the second layer would definitly
+change with the change of the first layer. So what the batch
+normalization does it to normalize the output of former layer then make
+them as the input of next layer.
+
+The advantages of the batch normalization can be concluded as follows:
+1. A large learning rate can be chosen, which would speed up the
+training process.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  We don't needto deal with the drop out and L1 or L2 regularization. Or
+  we can choose smaller regularization strength.
+\item
+  Make weights easier to initialize.  Batch normalisation helps reduce
+  the sensitivity to the initial starting weights.
+\item
+  Make more activation functions viable. For example, Sigmoid function
+  loses gradient quickly, which means it can't be used in deep networks,
+  and ReLU often dies out during training. Batch normalization regulates
+  the values going into each activation function, nonlinearities that
+  don't work well in deep networks tend to become viable again.
+\end{enumerate}
+
+    \hypertarget{section}{%
+\subsection{3.2}\label{section}}
+
+    \hypertarget{activation-function}{%
+\subsection{Activation function}\label{activation-function}}
+
+Activation functions are really important for a Artificial Neural
+Network to learn and make sense of something really complicated and
+Non-linear complex functional mappings between the inputs and response
+variable.
+
+It introduces non-linear properties to the network. The main purpose is
+to convert an input signal of a node in a A-NN to an output signal. That
+output signal now is used as a input in the next layer in the stack.
+
+If we don't apply an activation function then the output signal would be
+a simple linear function. A linear equation is easy to solve but they
+are limited in their complexity and have less power to learn complex
+functional mappings from data.
+
+Now that we need a Neural Network to learn and represent almost anything
+and any arbitray complex funtion which amps inputs to outputs. Hence
+using a non-linear activation we are able to generate non-linear
+mappings from inputs to outputs
+
+    \hypertarget{sigmoid}{%
+\subsubsection{Sigmoid}\label{sigmoid}}
+
+\[
+f(x) = \frac{1}{1+e^{(-x)}}
+\] The range of the function is between 0 and 1. It is a S-shaped curve
+as shown curve.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  vanishing gradient problem
+\item
+  the output is not zero centered. It makes the gradient updates go too
+  far in different directions
+\item
+  saturating and kill gradient
+\item
+  small convergent rate
+\end{enumerate}
+
+    \hypertarget{tanh}{%
+\subsubsection{Tanh}\label{tanh}}
+
+\[
+f(x) = \frac{e^{(x)} - e^{(-x)}}{e^{(x)}+e^{(-x)}}
+\]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  output centers at 0, ranging between -1 and 1.
+\item
+  Having stronger gradients
+\item
+  Avoding bias with those gradients
+\end{enumerate}
+
+    \hypertarget{relu}{%
+\subsubsection{Relu}\label{relu}}
+
+\[
+f(x) = max(0,x)
+\]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  simple and efficient
+\item
+  reduced likelihood of the gradient to vanish
+\item
+  sparsity arises when x \textless{}= 0
+\item
+  it should only be used with hidden layer of the neural network model
+\item
+  somtimes ReLu could result in Dead Neurons.
+\end{enumerate}
+
+    \hypertarget{part-3.3-batch-normalization}{%
+\subsection{Part 3.3 Batch
+Normalization}\label{part-3.3-batch-normalization}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.20}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{n\PYZus{}inputs} \PY{o}{=} \PY{l+m+mi}{64}  \PY{c+c1}{\PYZsh{} MNIST}
+         \PY{n}{n\PYZus{}hidden1} \PY{o}{=} \PY{l+m+mi}{300}
+         \PY{n}{n\PYZus{}hidden2} \PY{o}{=} \PY{l+m+mi}{200}
+         \PY{n}{n\PYZus{}hidden3} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{n\PYZus{}outputs} \PY{o}{=} \PY{l+m+mi}{10}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{} Reset graph}
+         \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Placeholders for data (inputs and targets)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,} \PY{n}{n\PYZus{}inputs}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{int64}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{} Define neuron layers (tanh in hidden layers)}
+         \PY{c+c1}{\PYZsh{} We\PYZsq{}ll take care of Softmax for output with loss function}
+         
+         \PY{k}{def} \PY{n+nf}{neuron\PYZus{}layer\PYZus{}bn}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{n\PYZus{}neurons}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} X input to neuron}
+             \PY{c+c1}{\PYZsh{} number of neurons for the layer}
+             \PY{c+c1}{\PYZsh{} name of layer}
+             \PY{c+c1}{\PYZsh{} pass in eventual activation function}
+             
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{n\PYZus{}inputs} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} initialize weights to prevent vanishing / exploding gradients}
+                 \PY{n}{stddev} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n\PYZus{}inputs}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} what is this for?}
+                 \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{truncated\PYZus{}normal}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}inputs}\PY{p}{,} \PY{n}{n\PYZus{}neurons}\PY{p}{)}\PY{p}{,} \PY{n}{stddev}\PY{o}{=}\PY{n}{stddev}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Initialize weights for the layer}
+                 \PY{n}{W} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{init}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weights}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} biases}
+                 \PY{n}{b} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}neurons}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 
+                  \PY{c+c1}{\PYZsh{} Output from every neuron}
+                 \PY{n}{Z} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{W}\PY{p}{)} \PY{o}{+} \PY{n}{b}
+                 \PY{c+c1}{\PYZsh{} batch normalization}
+         \PY{c+c1}{\PYZsh{}         so what we normalize is the every batch?}
+                 \PY{n}{mean}\PY{p}{,} \PY{n}{var} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{moments}\PY{p}{(}\PY{n}{Z}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{scale} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{n\PYZus{}neurons}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{beta} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n\PYZus{}neurons}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{BN} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{batch\PYZus{}normalization}\PY{p}{(}\PY{n}{Z}\PY{p}{,}\PY{n}{mean}\PY{p}{,}\PY{n}{var}\PY{p}{,}\PY{n}{beta}\PY{p}{,}\PY{n}{scale}\PY{p}{,}\PY{n}{epsilon}\PY{p}{)}
+                 
+                
+                 \PY{k}{if} \PY{n}{activation} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{activation}\PY{p}{(}\PY{n}{BN}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{BN}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} Define the hidden layers}
+         \PY{c+c1}{\PYZsh{} is\PYZus{}training = tf.placeholder(tf.bool, shape=(), name = \PYZdq{}is\PYZus{}training\PYZdq{})}
+         \PY{c+c1}{\PYZsh{} keep\PYZus{}prob = 0.9}
+         \PY{c+c1}{\PYZsh{} define the drop out ratio}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dnn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{hidden1} \PY{o}{=} \PY{n}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{n\PYZus{}hidden1}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hidden1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{tanh}\PY{p}{)}
+             \PY{n}{dropout1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{hidden1}\PY{p}{,} \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+             \PY{n}{hidden2} \PY{o}{=} \PY{n}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{dropout1}\PY{p}{,} \PY{n}{n\PYZus{}hidden2}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hidden2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PYZbs{}
+                                    \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{tanh}\PY{p}{)}
+             \PY{n}{dropout2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{hidden2}\PY{p}{,} \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+             \PY{n}{hidden3} \PY{o}{=} \PY{n}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{dropout2}\PY{p}{,} \PY{n}{n\PYZus{}hidden3}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hidden3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PYZbs{}
+                                    \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{tanh}\PY{p}{)}
+             \PY{n}{dropout3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{hidden3}\PY{p}{,} \PY{n}{keep\PYZus{}prob} \PY{o}{=} \PY{n}{keep\PYZus{}prob}\PY{p}{)}
+             \PY{n}{logits} \PY{o}{=} \PY{n}{neuron\PYZus{}layer}\PY{p}{(}\PY{n}{dropout3}\PY{p}{,} \PY{n}{n\PYZus{}outputs}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{outputs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} Define loss function (that also optimizes Softmax for output):}
+         
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} logits are from the last output of the dnn}
+             \PY{n}{xentropy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sparse\PYZus{}softmax\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{n}{y}\PY{p}{,}
+                                                                       \PY{n}{logits}\PY{o}{=}\PY{n}{logits}\PY{p}{)}
+             \PY{n}{loss} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{xentropy}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{scalar}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Training step with Gradient Descent}
+         
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}
+         
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{optimizer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+             \PY{n}{training\PYZus{}op} \PY{o}{=} \PY{n}{optimizer}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{loss}\PY{p}{)}
+             
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{eval}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     what is this for}
+             \PY{n}{correct} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{in\PYZus{}top\PYZus{}k}\PY{p}{(}\PY{n}{logits}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{)}
+             \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{scalar}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{train-step}{%
+\subsubsection{train step}\label{train-step}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{} merged = tf.summary.merge\PYZus{}all()}
+         \PY{n}{train\PYZus{}writer3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{FileWriter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logs/train3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{graph}\PY{p}{)}
+         \PY{n}{test\PYZus{}writer3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{FileWriter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logs/test3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{merged} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{merge\PYZus{}all}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+         \PY{n}{saver} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{Saver}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{epochs2} \PY{o}{=} \PY{l+m+mi}{2000}
+         \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{acc\PYZus{}trains3} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{acc\PYZus{}vals3} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{n\PYZus{}outputs} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{init}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     why here works, but the upper one does not.}
+         
+             
+             \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs2}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}     get the number of iterations}
+                 \PY{n}{iterations} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{n}{batch\PYZus{}size}
+             \PY{c+c1}{\PYZsh{}         get the batches}
+                 \PY{n}{x\PYZus{}batches}\PY{p}{,} \PY{n}{y\PYZus{}batches} \PY{o}{=} \PY{n}{new\PYZus{}batch}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}
+         
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} get batches of training data}
+                     \PY{c+c1}{\PYZsh{} we don\PYZsq{}t show everything to the network at once}
+                     \PY{c+c1}{\PYZsh{} what is the batch here?}
+                     \PY{n}{x\PYZus{}batch}\PY{p}{,} \PY{n}{y\PYZus{}batch} \PY{o}{=} \PY{n}{x\PYZus{}batches}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}batches}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{}         print(batch\PYZus{}xs)}
+         \PY{c+c1}{\PYZsh{}                 print(x\PYZus{}batch.shape, y\PYZus{}batch.shape)}
+         \PY{c+c1}{\PYZsh{}           define the drop out ratio}
+                     \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{training\PYZus{}op}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{x\PYZus{}batch}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}batch}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{l+m+mf}{0.9}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{acc\PYZus{}train} \PY{o}{=} \PY{n}{accuracy}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{acc\PYZus{}val} \PY{o}{=} \PY{n}{accuracy}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{\PYZcb{}}\PY{p}{)}    
+         \PY{c+c1}{\PYZsh{}         print(epoch, \PYZdq{}Train accuracy:\PYZdq{}, acc\PYZus{}train, \PYZdq{}Val accuracy:\PYZdq{}, acc\PYZus{}val)}
+                 \PY{n}{acc\PYZus{}trains3}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{acc\PYZus{}train}\PY{p}{)}
+                 \PY{n}{acc\PYZus{}vals3}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{acc\PYZus{}val}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}      tensor board}
+                 \PY{n}{train\PYZus{}summary} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Summary}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{train\PYZus{}summary}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{simple\PYZus{}value}\PY{o}{=}\PY{n}{acc\PYZus{}train}\PY{p}{)}
+                 \PY{n}{train\PYZus{}writer3}\PY{o}{.}\PY{n}{add\PYZus{}summary}\PY{p}{(}\PY{n}{train\PYZus{}summary}\PY{p}{,} \PY{n}{epoch}\PY{p}{)}
+                 \PY{n}{train\PYZus{}writer3}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{test\PYZus{}summary} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Summary}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{test\PYZus{}summary}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{simple\PYZus{}value}\PY{o}{=}\PY{n}{acc\PYZus{}val}\PY{p}{)}
+                 \PY{n}{test\PYZus{}writer3}\PY{o}{.}\PY{n}{add\PYZus{}summary}\PY{p}{(}\PY{n}{test\PYZus{}summary}\PY{p}{,} \PY{n}{epoch}\PY{p}{)}
+                 \PY{n}{test\PYZus{}writer3}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{50} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{train\PYZus{}loss}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{merged}\PY{p}{,}\PY{n}{training\PYZus{}op}\PY{p}{]}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{keep\PYZus{}prob}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{)}
+                     \PY{n}{train\PYZus{}writer3}\PY{o}{.}\PY{n}{add\PYZus{}summary}\PY{p}{(}\PY{n}{train\PYZus{}loss}\PY{p}{,} \PY{n}{epoch}\PY{p}{)}
+                     \PY{n}{train\PYZus{}writer3}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+                 
+             \PY{n}{save\PYZus{}path} \PY{o}{=} \PY{n}{saver}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./my\PYZus{}model\PYZus{}final.ckpt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} save model}
+\end{Verbatim}
+
+
+    \hypertarget{accuracy-plot-and-the-network-graph}{%
+\subsubsection{Accuracy plot and the network
+graph}\label{accuracy-plot-and-the-network-graph}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{} plot the accuracies against the epochs}
+         \PY{n}{arr\PYZus{}epochs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2000}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(type(arr\PYZus{}epochs))}
+         \PY{c+c1}{\PYZsh{} change to array}
+         \PY{n}{arr\PYZus{}acc\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{acc\PYZus{}trains3}\PY{p}{)}
+         \PY{n}{arr\PYZus{}acc\PYZus{}vals} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{acc\PYZus{}vals3}\PY{p}{)}
+         
+         \PY{n}{arr\PYZus{}acc\PYZus{}train50} \PY{o}{=} \PY{n}{arr\PYZus{}acc\PYZus{}train}\PY{p}{[}\PY{n}{arr\PYZus{}epochs}\PY{p}{]}
+         \PY{n}{arr\PYZus{}acc\PYZus{}vals50} \PY{o}{=} \PY{n}{arr\PYZus{}acc\PYZus{}vals}\PY{p}{[}\PY{n}{arr\PYZus{}epochs}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{1.05}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arr\PYZus{}epochs}\PY{p}{,} \PY{n}{arr\PYZus{}acc\PYZus{}train50}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arr\PYZus{}epochs}\PY{p}{,} \PY{n}{arr\PYZus{}acc\PYZus{}vals50}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{validation accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of epochs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} <matplotlib.legend.Legend at 0x2198cdcceb8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_68_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} plot the accuracies against the epochs}
+         \PY{n}{arr\PYZus{}epochs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(type(arr\PYZus{}epochs))}
+         \PY{c+c1}{\PYZsh{} change to array}
+         \PY{n}{arr\PYZus{}acc\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{acc\PYZus{}trains3}\PY{p}{)}
+         \PY{n}{arr\PYZus{}acc\PYZus{}vals} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{acc\PYZus{}vals3}\PY{p}{)}
+         
+         \PY{n}{arr\PYZus{}acc\PYZus{}train50} \PY{o}{=} \PY{n}{arr\PYZus{}acc\PYZus{}train}\PY{p}{[}\PY{n}{arr\PYZus{}epochs}\PY{p}{]}
+         \PY{n}{arr\PYZus{}acc\PYZus{}vals50} \PY{o}{=} \PY{n}{arr\PYZus{}acc\PYZus{}vals}\PY{p}{[}\PY{n}{arr\PYZus{}epochs}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.7}\PY{p}{,}\PY{l+m+mf}{1.05}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arr\PYZus{}epochs}\PY{p}{,} \PY{n}{arr\PYZus{}acc\PYZus{}train50}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy with batch normalization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.plot(arr\PYZus{}epochs, arr\PYZus{}acc\PYZus{}vals50, label = \PYZdq{}validation accuracy\PYZdq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arr\PYZus{}epochs}\PY{p}{,} \PY{n}{acc\PYZus{}trains2}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training accuracy without batch normalization}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.plot(arr\PYZus{}epochs, acc\PYZus{}vals2, label = \PYZdq{}validation accuracy without batch normalization\PYZdq{})}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of epochs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} <matplotlib.legend.Legend at 0x2198b8a3160>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{conclusion}{%
+\subsubsection{Conclusion}\label{conclusion}}
+
+As we see from the plot above, the method with batch normalization
+achieve higher accuarcy in terms of both training and test accuracy. The
+training rate is also faster.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

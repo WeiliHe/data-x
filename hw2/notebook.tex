@@ -1,0 +1,1828 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw2\_regression\_classification\_webscraping\_v2-1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{data-x-spring-2018-homework-02}{%
+\section{Data-X Spring 2018: Homework
+02}\label{data-x-spring-2018-homework-02}}
+
+\hypertarget{regression-classification-webscraping}{%
+\subsubsection{Regression, Classification,
+Webscraping}\label{regression-classification-webscraping}}
+
+\textbf{Authors:} Sana Iqbal (Part 1, 2, 3), Alexander Fred-Ojala (Extra
+Credit)
+
+In this homework, you will do some exercises with
+prediction-classification, regression and web-scraping.
+
+    \hypertarget{part-1}{%
+\subsection{Part 1}\label{part-1}}
+
+    \hypertarget{data}{%
+\subsubsection{Data:}\label{data}}
+
+\textbf{Data Source}: Data file is uploaded to bCourses and is named:
+\textbf{Energy.csv}
+
+The dataset was created by Angeliki Xifara ( Civil/Structural Engineer)
+and was processed by Athanasios Tsanas, Oxford Centre for Industrial and
+Applied Mathematics, University of Oxford, UK).
+
+\textbf{Data Description}:
+
+The dataset contains eight attributes of a building (or features,
+denoted by X1\ldots{}X8) and response being the heating load on the
+building, y1.
+
+\begin{itemize}
+\tightlist
+\item
+  X1 Relative Compactness
+\item
+  X2 Surface Area
+\item
+  X3 Wall Area
+\item
+  X4 Roof Area
+\item
+  X5 Overall Height
+\item
+  X6 Orientation
+\item
+  X7 Glazing Area
+\item
+  X8 Glazing Area Distribution
+\item
+  y1 Heating Load
+\end{itemize}
+
+    \hypertarget{q1read-the-data-file-in-python.-describe-data-features-in-terms-of-type-distribution-range-and-mean-values.-plot-feature-distributions.this-step-should-give-you-clues-about-data-sufficiency.}{%
+\paragraph{Q1:Read the data file in python. Describe data features in
+terms of type, distribution range and mean values. Plot feature
+distributions.This step should give you clues about data
+sufficiency.}\label{q1read-the-data-file-in-python.-describe-data-features-in-terms-of-type-distribution-range-and-mean-values.-plot-feature-distributions.this-step-should-give-you-clues-about-data-sufficiency.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{c+c1}{\PYZsh{} No warnings}
+          \PY{k+kn}{import} \PY{n+nn}{warnings}
+          \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Filter out warnings}
+          
+          \PY{c+c1}{\PYZsh{} data analysis and wrangling}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{random} \PY{k}{as} \PY{n+nn}{rnd}
+          \PY{k+kn}{import} \PY{n+nn}{math}
+          \PY{c+c1}{\PYZsh{} visualization}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          
+          \PY{c+c1}{\PYZsh{} machine learning}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}\PY{p}{,} \PY{n}{LinearSVC}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB} \PY{c+c1}{\PYZsh{} Gaussian Naive Bays}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Perceptron}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{SGDClassifier} \PY{c+c1}{\PYZsh{}stochastic gradient descent}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+          
+          \PY{c+c1}{\PYZsh{} play styling}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{context}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{notebook}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{]} \PY{o}{=} \PY{l+m+mi}{9} \PY{p}{,} \PY{l+m+mi}{5}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{n}{energy\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Energy.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{n}{energy\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}183}]:}                X1          X2          X3          X4         X5          X6  \textbackslash{}
+          count  768.000000  768.000000  768.000000  768.000000  768.00000  768.000000   
+          mean     0.764167  671.708333  318.500000  176.604167    5.25000    3.500000   
+          std      0.105777   88.086116   43.626481   45.165950    1.75114    1.118763   
+          min      0.620000  514.500000  245.000000  110.250000    3.50000    2.000000   
+          25\%      0.682500  606.375000  294.000000  140.875000    3.50000    2.750000   
+          50\%      0.750000  673.750000  318.500000  183.750000    5.25000    3.500000   
+          75\%      0.830000  741.125000  343.000000  220.500000    7.00000    4.250000   
+          max      0.980000  808.500000  416.500000  220.500000    7.00000    5.000000   
+          
+                         X7         X8          Y1  
+          count  768.000000  768.00000  768.000000  
+          mean     0.234375    2.81250   22.307201  
+          std      0.133221    1.55096   10.090196  
+          min      0.000000    0.00000    6.010000  
+          25\%      0.100000    1.75000   12.992500  
+          50\%      0.250000    3.00000   18.950000  
+          75\%      0.400000    4.00000   31.667500  
+          max      0.400000    5.00000   43.100000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}184}]:} \PY{n}{f}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Relative Compactness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Surface Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{ax3}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wall Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax4} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{ax4}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Roof Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax5} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{ax5}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax5}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Overall Height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax6} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}
+          \PY{n}{ax6}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax6}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Orientation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax7} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
+          \PY{n}{ax7}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax7}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Glazing Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax8} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}
+          \PY{n}{ax8}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax8}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Glazing Area Distribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax9} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}
+          \PY{n}{ax9}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax9}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heating Load}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}184}]:} Text(0.5,0,'Heating Load')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{REGRESSION}: LABELS ARE CONTINUOUS VALUES. Here the model is
+trained to predict a continuous value for each instance. On inputting a
+feature vector into the model, the trained model is able to predict a
+continuous value for that instance.
+
+\textbf{Q2.1: Train a linear regression model on 85 percent of the given
+dataset, what is the intercept value and coefficient values.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} \PY{c+c1}{\PYZsh{} check the number of NaN value in the dataframe}
+          \PY{n}{energy\PYZus{}df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}185}]:} X1    0
+          X2    0
+          X3    0
+          X4    0
+          X5    0
+          X6    0
+          X7    0
+          X8    0
+          Y1    0
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{n}{EX} \PY{o}{=} \PY{n}{energy\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{EY} \PY{o}{=} \PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}187}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{n}{ex\PYZus{}train}\PY{p}{,} \PY{n}{ex\PYZus{}test}\PY{p}{,} \PY{n}{ey\PYZus{}train}\PY{p}{,} \PY{n}{ey\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{EX}\PY{p}{,} \PY{n}{EY}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of samples in training data:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{ex\PYZus{}train}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of samples in validation data:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{ex\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of samples in training data: 652
+Number of samples in validation data: 116
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}262}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}
+          
+          \PY{n}{ene\PYZus{}lireg} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training a Linear Regression Model..}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ene\PYZus{}lireg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{ex\PYZus{}train}\PY{p}{,}\PY{n}{ey\PYZus{}train}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print the intercept and the coefficients}
+          
+          \PY{n}{coeff\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Relative Compactness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Surface Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wall Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Roof Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Overall Height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Orientation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PYZbs{}
+                        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Glazing Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Glazing Area Distribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intercept:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ene\PYZus{}lireg}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coeffiecients for X1 to X8:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{coeff} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{ene\PYZus{}lireg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{coeff\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{coeff}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training a Linear Regression Model..
+Intercept: 75.0961109706
+
+Coeffiecients for X1 to X8:
+Relative Compactness :  -60.5426731955
+Surface Area :  248898603421.0
+Wall Area :  -248898603421.0
+Roof Area :  -497797206842.0
+Overall Height :  4.33485674858
+Orientation :  0.0185587629676
+Glazing Area :  20.0668307384
+Glazing Area Distribution :  0.235076511279
+
+    \end{Verbatim}
+
+    \hypertarget{q.2.2-report-model-performance-using-root-mean-square-error-metric-on}{%
+\paragraph{Q.2.2: Report model performance using `ROOT MEAN SQUARE'
+error metric
+on:}\label{q.2.2-report-model-performance-using-root-mean-square-error-metric-on}}
+
+\textbf{1. Data that was used for training(Training error)}\\
+\textbf{2. On the 15 percent of unseen data (test error) }
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}263}]:} \PY{c+c1}{\PYZsh{} training error}
+          \PY{n}{Tr\PYZus{}pred} \PY{o}{=} \PY{n}{ene\PYZus{}lireg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{ex\PYZus{}train}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Tranning error (Root Mean Square): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{Tr\PYZus{}pred}\PY{o}{\PYZhy{}}\PY{n}{ey\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{Te\PYZus{}pred} \PY{o}{=} \PY{n}{ene\PYZus{}lireg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{ex\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test error (Root Mean Square): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{Te\PYZus{}pred}\PY{o}{\PYZhy{}}\PY{n}{ey\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tranning error (Root Mean Square):  2.92794825404
+Test error (Root Mean Square):  2.87513191559
+
+    \end{Verbatim}
+
+    \_\_ Q2.3: Lets us see the effect of amount of data on the performance
+of prediction model.Use varying amounts of Training data
+(100,200,300,400,500,all) to train regression models and report training
+error and validation error in each case. Validation data/Test data is
+the same as above for all these cases.\_\_
+
+Plot error rates vs number of training examples.Comment on the
+relationshipyou observe in the plot, between the amount of data used to
+train the model and the validation accuracy of the model.
+
+\textbf{Hint:} Use array indexing to choose varying data amounts
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}264}]:} \PY{c+c1}{\PYZsh{} There are some requirements when choosing the data? like the 200 data are}
+          \PY{c+c1}{\PYZsh{} based on the first 100 and add 100 more random data?}
+          \PY{n}{len\PYZus{}train} \PY{o}{=} \PY{l+m+mi}{652}
+          \PY{n}{Tr\PYZus{}err} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{Te\PYZus{}err} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} used to  store the train data 100, 200 ...}
+          \PY{n}{X\PYZus{}train\PYZus{}store} \PY{o}{=} \PY{p}{[}\PY{p}{]} 
+          \PY{n}{Y\PYZus{}train\PYZus{}store} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{ex\PYZus{}train}\PY{p}{,} \PY{n}{ex\PYZus{}test}\PY{p}{,} \PY{n}{ey\PYZus{}train}\PY{p}{,} \PY{n}{ey\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{EX}\PY{p}{,} \PY{n}{EY}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+          
+          \PY{n}{Ex\PYZus{}train} \PY{o}{=} \PY{n}{ex\PYZus{}train}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+          \PY{n}{Ey\PYZus{}train} \PY{o}{=} \PY{n}{ey\PYZus{}train}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} print(type(Ex\PYZus{}train), type(Ey\PYZus{}train))}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{l+m+mi}{6}\PY{p}{:}
+                  \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{Ex\PYZus{}train}\PY{p}{,} \PY{n}{Ey\PYZus{}train}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{n}{len\PYZus{}train}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{o}{/}\PY{n}{len\PYZus{}train}\PY{p}{,}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}    concatenate the train data }
+                  \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}store}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n}{X\PYZus{}train\PYZus{}store}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}
+                      \PY{n}{Y\PYZus{}train\PYZus{}store}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+                      \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}
+                      \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{EX}\PY{p}{,} \PY{n}{EY}\PY{p}{,}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+          
+              \PY{n}{ene\PYZus{}lireg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+              \PY{n}{tr\PYZus{}pred} \PY{o}{=} \PY{n}{ene\PYZus{}lireg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}
+              \PY{n}{te\PYZus{}pred} \PY{o}{=} \PY{n}{ene\PYZus{}lireg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}     append each Training error and testing error}
+              \PY{n}{Tr\PYZus{}err}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{tr\PYZus{}pred}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{Te\PYZus{}err}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{te\PYZus{}pred}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              
+          \PY{c+c1}{\PYZsh{}   store the train data}
+          \PY{c+c1}{\PYZsh{}     X\PYZus{}train\PYZus{}store.append(x\PYZus{}train)}
+          \PY{c+c1}{\PYZsh{}     Y\PYZus{}train\PYZus{}store.append(y\PYZus{}train)}
+          \PY{c+c1}{\PYZsh{}     update the train data, }
+          \PY{c+c1}{\PYZsh{}     print(list(Ex\PYZus{}train.index))}
+              \PY{k}{if} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{l+m+mi}{6}\PY{p}{:}
+                  \PY{n}{Ex\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{index} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}     print(type(Ex\PYZus{}train), type(Ey\PYZus{}train))}
+                  \PY{n}{Ey\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{index} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{} ex\PYZus{}train, ex\PYZus{}test, ey\PYZus{}train, ey\PYZus{}test = train\PYZus{}test\PYZus{}split(EX, EY, test\PYZus{}size = 0.15, random\PYZus{}state = 100)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}265}]:} \PY{n}{f} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{Tr\PYZus{}err}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{Te\PYZus{}err}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} labels = [item.get\PYZus{}text() for item in f.get\PYZus{}xticklabels()]}
+          \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{,}\PY{l+m+mi}{500}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{labels}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}265}]:} <matplotlib.legend.Legend at 0x2b3beeb1e48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The relation between the size of training data and the train error is
+not clear, since the train error fluctuates with size.
+
+But the test error increased first then dropped rapidly after the number
+of 400. It means the more training data was used to calibrate, the more
+accurate model could be obtained, as long as the number of test data is
+fixed.
+
+    \textbf{CLASSIFICATION}: LABELS ARE DISCRETE VALUES. Here the model is
+trained to classify each instance into a set of predefined discrete
+classes. On inputting a feature vector into the model, the trained model
+is able to predict a class of that instance. You can also output the
+probabilities of an instance belnging to a class.
+
+\_\_ Q 3.1: Bucket values of `y1' i.e `Heating Load' from the original
+dataset into 3 classes:\_\_
+
+0: `Low' ( \textless{} 15),\\
+1: `Medium' (15-30),\\
+2: `High' (\textgreater{}30)
+
+This converts the given dataset into a classification problem, classes
+being, Heating load is: \emph{low, medium or high}. Use this datset with
+transformed `heating load' for creating a logistic regression
+classifiction model that predicts heating load type of a building. Use
+test-train split ratio of 0.15.
+
+\emph{Report training and test accuracies and confusion matrices.}
+
+\textbf{HINT:} Use pandas.cut
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}266}]:} \PY{n}{bins} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{math}\PY{o}{.}\PY{n}{inf}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{math}\PY{o}{.}\PY{n}{inf}\PY{p}{]}
+          \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}
+          \PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{labels}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}267}]:} \PY{n}{X2} \PY{o}{=} \PY{n}{energy\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{Y2} \PY{o}{=} \PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}268}]:} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X2}\PY{p}{,} \PY{n}{Y2}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of samples in training data:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of samples in validation data:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of samples in training data: 652
+Number of samples in validation data: 116
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}272}]:} \PY{n}{ene\PYZus{}logreg} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1e5}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training a logistic Regression Model...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ene\PYZus{}logreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training a logistic Regression Model{\ldots}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}272}]:} LogisticRegression(C=100000.0, class\_weight=None, dual=False,
+                    fit\_intercept=True, intercept\_scaling=1, max\_iter=100,
+                    multi\_class='ovr', n\_jobs=1, penalty='l2', random\_state=None,
+                    solver='liblinear', tol=0.0001, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}273}]:} \PY{c+c1}{\PYZsh{} how to define the accuracy?}
+          \PY{n}{training\PYZus{}accuracy} \PY{o}{=} \PY{n}{ene\PYZus{}logreg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{training\PYZus{}accuracy}\PY{p}{)}
+          
+          \PY{n}{validation\PYZus{}accuracy} \PY{o}{=} \PY{n}{ene\PYZus{}logreg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Validation Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{validation\PYZus{}accuracy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training Accuracy: 0.829754601227
+Validation Accuracy: 0.827586206897
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}274}]:} \PY{c+c1}{\PYZsh{} confusion matrix}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+          \PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{y\PYZus{}test}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{ene\PYZus{}logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          \PY{n}{cf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pred 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                            \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion matrix of test data is:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{cf}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Confusion matrix of test data is:
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+       Pred 0   1   2
+Act 0      38   2   0
+1           9  35   6
+2           0   3  23
+    \end{verbatim}
+
+    
+    \_\_ Q3.2: One of the preprocessing steps in Data science is Feature
+Scaling i.e getting all our data on the same scale by setting same
+Min-Max of feature values. This makes training less sensitive to the
+scale of features . Scaling is important in algorithms that use distance
+based classification, SVM or K means or involve gradient descent
+optimization.If we Scale features in the range {[}0,1{]} it is called
+unity based normalization.\_\_
+
+\textbf{Perform unity based normalization on the above dataset and train
+the model again, compare model performance in training and validation
+with your previous model.}
+
+refer:http://scikit-learn.org/stable/modules/preprocessing.html\#preprocessing-scaler\\
+more at: https://en.wikipedia.org/wiki/Feature\_scaling
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}275}]:} \PY{c+c1}{\PYZsh{} when you scale the train data, you need to perform the same scaling to the}
+          \PY{c+c1}{\PYZsh{} test data}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+          
+          \PY{n}{X2} \PY{o}{=} \PY{n}{energy\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{Y2} \PY{o}{=} \PY{n}{energy\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X2}\PY{p}{,} \PY{n}{Y2}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} seperate the train data and test data first?}
+          \PY{n}{min\PYZus{}max\PYZus{}scaler} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Transforming the train data and the test data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{X\PYZus{}train\PYZus{}minmax} \PY{o}{=} \PY{n}{min\PYZus{}max\PYZus{}scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}
+          \PY{n}{X\PYZus{}test\PYZus{}minmax} \PY{o}{=} \PY{n}{min\PYZus{}max\PYZus{}scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Transforming the train data and the test data
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}276}]:} \PY{n}{ene\PYZus{}logreg2} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1e5}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training a logistic Regression Model...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ene\PYZus{}logreg2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}minmax}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training a logistic Regression Model{\ldots}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}276}]:} LogisticRegression(C=100000.0, class\_weight=None, dual=False,
+                    fit\_intercept=True, intercept\_scaling=1, max\_iter=100,
+                    multi\_class='ovr', n\_jobs=1, penalty='l2', random\_state=None,
+                    solver='liblinear', tol=0.0001, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}277}]:} \PY{n}{training\PYZus{}accuracy} \PY{o}{=} \PY{n}{ene\PYZus{}logreg2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}minmax}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{training\PYZus{}accuracy}\PY{p}{)}
+          
+          \PY{n}{validation\PYZus{}accuracy} \PY{o}{=} \PY{n}{ene\PYZus{}logreg2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}minmax}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Validation Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{validation\PYZus{}accuracy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training Accuracy: 0.820552147239
+Validation Accuracy: 0.827586206897
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}278}]:} \PY{c+c1}{\PYZsh{} confusion matrix}
+          
+          \PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{y\PYZus{}test}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{ene\PYZus{}logreg2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}minmax}\PY{p}{)}
+          \PY{n}{cf2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pred 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                            \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Act 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion matrix of test data is:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{cf2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Confusion matrix of test data is:
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+       Pred 0   1   2
+Act 0      35   5   0
+1           6  39   5
+2           0   4  22
+    \end{verbatim}
+
+    
+    After the min max scale, the accuracy is nearly the same with before,
+slightly worse.
+
+And from the confusion matrix we can see the model after scaling did
+better in predicting the 0(low heating load), but worse in predicting
+the other 2.
+
+    \hypertarget{part-2}{%
+\subsection{Part 2}\label{part-2}}
+
+    \_\_ 1. Read \textbf{\texttt{diabetesdata.csv}} file into a pandas
+dataframe. Analyze the data features, check for NaN values. About the
+data: \_\_
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{TimesPregnant}: Number of times pregnant
+\item
+  \textbf{glucoseLevel}: Plasma glucose concentration a 2 hours in an
+  oral glucose tolerance test
+\item
+  \textbf{BP}: Diastolic blood pressure (mm Hg)\\
+\item
+  \textbf{insulin}: 2-Hour serum insulin (mu U/ml)
+\item
+  \textbf{BMI}: Body mass index (weight in kg/(height in m)\^{}2)
+\item
+  \textbf{pedigree}: Diabetes pedigree function
+\item
+  \textbf{Age}: Age (years)
+\item
+  \textbf{IsDiabetic}: 0 if not diabetic or 1 if diabetic)
+\end{enumerate}
+
+\_\_ 2. Preprocess data to replace NaN values in a feature(if any) using
+mean of the feature.\\
+Train logistic regression, SVM, perceptron, kNN, xgboost and random
+forest models using this preprocessed data with 20\% test split.Report
+training and test accuracies.\_\_
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}279}]:} \PY{n}{diabetes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{diabetesdata.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{diabetes\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}279}]:}    TimesPregnant  glucoseLevel  BP  insulin   BMI  Pedigree   Age  IsDiabetic
+          0              6         148.0  72        0  33.6     0.627  50.0           1
+          1              1           NaN  66        0  26.6     0.351  31.0           0
+          2              8         183.0  64        0  23.3     0.672   NaN           1
+          3              1           NaN  66       94  28.1     0.167  21.0           0
+          4              0         137.0  40      168  43.1     2.288  33.0           1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}280}]:} \PY{n}{diabetes\PYZus{}df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}280}]:} TimesPregnant     0
+          glucoseLevel     34
+          BP                0
+          insulin           0
+          BMI               0
+          Pedigree          0
+          Age              33
+          IsDiabetic        0
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}281}]:} \PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{glucoseLevel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{glucoseLevel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{diabetes\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}281}]:}    TimesPregnant  glucoseLevel  BP  insulin   BMI  Pedigree        Age  \textbackslash{}
+          0              6    148.000000  72        0  33.6     0.627  50.000000   
+          1              1    121.016349  66        0  26.6     0.351  31.000000   
+          2              8    183.000000  64        0  23.3     0.672  33.353741   
+          3              1    121.016349  66       94  28.1     0.167  21.000000   
+          4              0    137.000000  40      168  43.1     2.288  33.000000   
+          
+             IsDiabetic  
+          0           1  
+          1           0  
+          2           1  
+          3           0  
+          4           1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}282}]:} \PY{n}{X3} \PY{o}{=} \PY{n}{diabetes\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IsDiabetic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{Y3} \PY{o}{=} \PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IsDiabetic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X3}\PY{p}{,} \PY{n}{Y3}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{c+c1}{\PYZsh{} logistic regression}
+          \PY{n}{logreg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{logreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          \PY{n}{acc\PYZus{}tr\PYZus{}log} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{logreg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}log} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{logreg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}log}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}log}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Accuracy: 78.34
+Test Accuracy: 73.38
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{c+c1}{\PYZsh{} support vector machines}
+          \PY{c+c1}{\PYZsh{} how to score the support vector machines}
+          \PY{n}{svc} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{p}{)}
+          \PY{n}{svc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{svc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          \PY{n}{acc\PYZus{}tr\PYZus{}svc} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{svc}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}svc} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{svc}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}svc}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}svc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Accuracy: 100.0
+Test Accuracy: 65.58
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{c+c1}{\PYZsh{} Perceptron}
+          
+          \PY{n}{perceptron} \PY{o}{=} \PY{n}{Perceptron}\PY{p}{(}\PY{p}{)}
+          \PY{n}{perceptron}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{perceptron}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          
+          \PY{n}{acc\PYZus{}tr\PYZus{}per} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{perceptron}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}per} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{perceptron}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}per}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}per}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Accuracy: 64.17
+Test Accuracy: 64.29
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{c+c1}{\PYZsh{}  kNN}
+          \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          
+          \PY{n}{acc\PYZus{}tr\PYZus{}knn} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}knn} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}knn}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}knn}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Accuracy: 85.34
+Test Accuracy: 67.53
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}283}]:} \PY{c+c1}{\PYZsh{} XGBoost}
+          \PY{k+kn}{import} \PY{n+nn}{xgboost} \PY{k}{as} \PY{n+nn}{xgb}
+          \PY{n}{gradboost} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+          \PY{n}{gradboost}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{gradboost}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          
+          \PY{n}{acc\PYZus{}tr\PYZus{}xgb} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{gradboost}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}xgb} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{gradboost}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}xgb}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}xgb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ModuleNotFoundError                       Traceback (most recent call last)
+
+        <ipython-input-283-0f350e6c8bfe> in <module>()
+          1 \# XGBoost
+    ----> 2 import xgboost as xgb
+          3 gradboost = xgb.XGBClassifier(n\_estimators=1000)
+          4 gradboost.fit(x\_train, y\_train)
+          5 y\_pred = gradboost.predict(x\_test)
+    
+
+        ModuleNotFoundError: No module named 'xgboost'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}284}]:} \PY{c+c1}{\PYZsh{} Random Forest}
+          \PY{n}{random\PYZus{}forest} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+          \PY{n}{random\PYZus{}forest}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{random\PYZus{}forest}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          
+          \PY{n}{acc\PYZus{}tr\PYZus{}rnd} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{random\PYZus{}forest}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}rnd} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{random\PYZus{}forest}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}rnd}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}rnd}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Accuracy: 100.0
+Test Accuracy: 72.08
+
+    \end{Verbatim}
+
+    \textbf{3. What is the ratio of diabetic persons in 3 equirange bands of
+`BMI' and `Pedigree' in the provided dataset.}
+
+\textbf{Convert these features - `BP',`insulin',`BMI' and `Pedigree'
+into categorical values by mapping different bands of values of these
+features to integers 0,1,2.}
+
+HINT: USE pd.cut with bin=3 to create 3 bins
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}285}]:} \PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BPBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMIBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMI}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PedigreeBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pedigree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}286}]:} \PY{n}{display}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BPBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IsDiabetic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BPBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BPBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMIBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IsDiabetic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMIBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMIBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PedigreeBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IsDiabetic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PedigreeBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PedigreeBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+  BPBand  IsDiabetic
+0      0    0.450000
+1      1    0.307282
+2      2    0.466667
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+  BMIBand  IsDiabetic
+0       0    0.039216
+1       1    0.358297
+2       2    0.611111
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+  PedigreeBand  IsDiabetic
+0            0    0.327007
+1            1    0.540541
+2            2    0.444444
+    \end{verbatim}
+
+    
+    People with normal blood pressure tends to have less risk of getting
+diabetes. People who are obese are more likely to get diabetes. It seems
+there is no direct relation between diabetes between pedigree.
+
+    \textbf{4. Now consider the original dataset again, instead of
+generalizing the NAN values with the mean of the feature we will try
+assigning values to NANs based on some hypothesis. For example for age
+we assume that the relation between BMI and BP of people is a reflection
+of the age group.We can have 9 types of BMI and BP relations and our aim
+is to find the median age of each of that group:}
+
+Your Age guess matrix will look like this:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+BMI & 0 & 1 & 2\tabularnewline
+\midrule
+\endhead
+BP & & &\tabularnewline
+0 & a00 & a01 & a02\tabularnewline
+1 & a10 & a11 & a12\tabularnewline
+2 & a20 & a21 & a22\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Create a guess\_matrix for NaN values of \emph{`Age'} ( using
+`BMI' and `BP') and \emph{`glucoseLevel'} (using `BP' and `Pedigree')
+for the given dataset and assign values accordingly to the NaNs in `Age'
+or \emph{`glucoseLevel'} .}
+
+Refer to how we guessed age in the titanic notebook in the class.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{n}{diabetes\PYZus{}df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{diabetesdata.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{n}{diabetes\PYZus{}df2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BPBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n}{diabetes\PYZus{}df2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMIBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMI}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n}{diabetes\PYZus{}df2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PedigreeBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{diabetes\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pedigree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{X4} \PY{o}{=} \PY{n}{diabetes\PYZus{}df2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IsDiabetic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{Y4} \PY{o}{=} \PY{n}{diabetes\PYZus{}df2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IsDiabetic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X4}\PY{p}{,} \PY{n}{Y4}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{combine} \PY{o}{=} \PY{p}{[}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{]}
+          \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}214}]:} ((614, 10), (154, 10))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{n}{guess\PYZus{}ages} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{dtype} \PY{o}{=} \PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{guess\PYZus{}glucoseLevel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{dtype} \PY{o}{=} \PY{n+nb}{float}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}287}]:} \PY{c+c1}{\PYZsh{}  store the new dataframe after filling the NaN value}
+          \PY{n}{combine2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{dataset} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{combine}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Working on Training Data set}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{*}\PY{l+m+mi}{35}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Working on Test Data set}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Guess values of age and glucoseLevel based on BMI and BP...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{guess\PYZus{}df1} \PY{o}{=} \PY{n}{dataset}\PY{p}{[}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMIBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BPBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+                      \PY{n}{guess\PYZus{}df2} \PY{o}{=} \PY{n}{dataset}\PY{p}{[}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BPBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PedigreeBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{glucoseLevel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}           get the median age and glucoseLevel of the group}
+          \PY{c+c1}{\PYZsh{}           in case no return in the guess dataframe}
+                      \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{len}\PY{p}{(}\PY{n}{guess\PYZus{}df1}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                          \PY{n}{age\PYZus{}guess}  \PY{o}{=} \PY{n}{guess\PYZus{}df1}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{age\PYZus{}guess} \PY{o}{=} \PY{l+m+mi}{0}
+                      
+                      \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{len}\PY{p}{(}\PY{n}{guess\PYZus{}df2}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                          \PY{n}{glu\PYZus{}guess} \PY{o}{=} \PY{n}{guess\PYZus{}df2}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{glu\PYZus{}guess} \PY{o}{=} \PY{l+m+mi}{0}
+                          
+                          
+                      \PY{n}{guess\PYZus{}ages}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{age\PYZus{}guess}\PY{p}{)}
+                      \PY{n}{guess\PYZus{}glucoseLevel}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{glu\PYZus{}guess}
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Guess\PYZus{}Age table:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{guess\PYZus{}ages}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Guess\PYZus{}glucoseLevel table:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{guess\PYZus{}glucoseLevel}\PY{p}{)}    
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Assigning age values to NAN age values in the dataset...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{Series1} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{Age}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{BMIBand} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{BPBand} \PY{o}{==} \PY{n}{j}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                 \PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                      \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{len}\PY{p}{(}\PY{n}{Series1}\PY{p}{)} \PY{o}{==} \PY{k+kc}{None}\PY{p}{:}
+          \PY{c+c1}{\PYZsh{}                 you need to put the \PYZdq{}age\PYZdq{} inside, or what you replace is not in the dataframe}
+                          \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{Age}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{BMIBand} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{BPBand} \PY{o}{==} \PY{n}{j}\PY{p}{)}\PYZbs{}
+                                 \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{guess\PYZus{}ages}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}
+                      
+                      \PY{n}{Series2} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{glucoseLevel}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{BPBand} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{PedigreeBand} \PY{o}{==} \PY{n}{j}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                 \PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{glucoseLevel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                      \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{len}\PY{p}{(}\PY{n}{Series2}\PY{p}{)} \PY{o}{==} \PY{k+kc}{None}\PY{p}{:}
+                          \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{glucoseLevel}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{BPBand} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{PedigreeBand} \PY{o}{==} \PY{n}{j}\PY{p}{)}\PYZbs{}
+                                 \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{glucoseLevel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{guess\PYZus{}glucoseLevel}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}
+                      
+          \PY{c+c1}{\PYZsh{}     dataset[\PYZdq{}Age\PYZdq{}] = dataset[\PYZdq{}Age\PYZdq{}].astype(int)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Done}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Working on Training Data set
+
+Guess values of age and glucoseLevel based on BMI and BP{\ldots}
+Guess\_Age table:
+ [[24 25 55]
+ [29 29 37]
+ [40 32 31]]
+Guess\_glucoseLevel table:
+ [[ 114.5  127.5  137. ]
+ [ 112.   118.   149. ]
+ [ 136.   125.5  159.5]]
+
+Assigning age values to NAN age values in the dataset{\ldots}
+
+-----------------------------------
+Working on Test Data set
+
+Guess values of age and glucoseLevel based on BMI and BP{\ldots}
+Guess\_Age table:
+ [[25 24  0]
+ [37 26 37]
+ [26 27 23]]
+Guess\_glucoseLevel table:
+ [[ 115.     0.     0. ]
+ [ 112.   111.     0. ]
+ [ 126.   145.5    0. ]]
+
+Assigning age values to NAN age values in the dataset{\ldots}
+
+Done
+
+    \end{Verbatim}
+
+    \textbf{5. Now, convert `glucoseLevel' and `Age' features also to
+categorical variables of 5 categories each.}
+
+\textbf{Use this dataset (with all features in categorical form) to
+train perceptron, logistic regression and random forest models using
+20\% test split. Report training and test accuracies.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}288}]:} \PY{c+c1}{\PYZsh{} change the glucoseLevel and age to categorical variables}
+          \PY{k}{for} \PY{n}{dataset} \PY{o+ow}{in} \PY{n}{combine}\PY{p}{:}
+              \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AgeBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+              \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GluBand}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{glucoseLevel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{x\PYZus{}train\PYZus{}re} \PY{o}{=} \PY{n}{combine}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{glucoseLevel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMI}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pedigree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{x\PYZus{}test\PYZus{}re} \PY{o}{=} \PY{n}{combine}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{glucoseLevel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BMI}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pedigree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{c+c1}{\PYZsh{} percetron}
+          \PY{n}{perceptron2} \PY{o}{=} \PY{n}{Perceptron}\PY{p}{(}\PY{p}{)}
+          \PY{n}{perceptron2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{perceptron2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}re}\PY{p}{)}
+          
+          \PY{n}{acc\PYZus{}tr\PYZus{}per2} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{perceptron}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}per2} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{perceptron}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}per2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}per2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Accuracy: 37.95
+Test Accuracy: 42.21
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{c+c1}{\PYZsh{} logistic regression}
+          \PY{n}{logreg2} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{logreg2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}re}\PY{p}{)}
+          
+          \PY{n}{acc\PYZus{}tr\PYZus{}log2} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{logreg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}log2} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{logreg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}log2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}log2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Accuracy: 68.08
+Test Accuracy: 65.58
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{c+c1}{\PYZsh{} Random Forest}
+          \PY{n}{random\PYZus{}forest2} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+          \PY{n}{random\PYZus{}forest2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{random\PYZus{}forest}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}re}\PY{p}{)}
+          
+          \PY{n}{acc\PYZus{}tr\PYZus{}rnd2} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{random\PYZus{}forest}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{acc\PYZus{}te\PYZus{}rnd2} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{random\PYZus{}forest}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}re}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}tr\PYZus{}rnd2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc\PYZus{}te\PYZus{}rnd2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Accuracy: 67.92
+Test Accuracy: 68.18
+
+    \end{Verbatim}
+
+    \_\_ Conclusion: \_\_Apparently, the Random Forest and Logistic
+Regression perform better than the perceptron method.
+
+However, after the variables were transfromed to categorical variables,
+the accuracies are worse than before.
+
+    \hypertarget{part-3}{%
+\subsubsection{Part 3}\label{part-3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Derive the expression for the optimal parameters in the linear
+  regression equation, i.e.~solve the normal equation for Ordinary Least
+  Squares for the case of Simple Linear Regression, when we only have
+  one input and one output}
+\end{enumerate}
+
+Given a set of \emph{n} points \((X_i,Y_i)\) where \(Yi\) is dependent
+on \(Xi\) by a linear relation, find the best-fit
+line,\[Z_i = {aX_i + b}\] that minimizes the \textbf{sum of squared
+errors in Y},i.e: \[minimize \sum_{i}{(Y_i- Z_i)^2}\] \textbf{i. } Show
+that
+\[ intercept \quad b = \overline{Y}-  a.\overline{X}\quad  and   \quad slope \quad a= \frac{\sum_{i}(X_i- \overline{X})(Y_i- \overline{Y})}{ \sum_{i}(X_i- \overline{X})^2}\]
+
+where \(\overline{X}\) and \(\overline{Y}\) are the averages of the X
+values and the Y values, respectively.
+
+\_\_ ii. \_\_Show that slope \emph{a} can be written as \$ a = r.(S\_y
+/S\_x)\$ where \(S_y\) = the standard deviation of the Y values and
+\(S_x\)= the standard deviation of the X values and \emph{r} is the
+correlation coefficient.
+
+\hypertarget{please-try-to-write-a-nice-latexed-version-of-your-answer-and-do-the-derivations-of-the-expressions-as-nicely-as-possible}{%
+\subparagraph{Please try to write a nice LateXed version of your answer,
+and do the derivations of the expressions as nicely as
+possible}\label{please-try-to-write-a-nice-latexed-version-of-your-answer-and-do-the-derivations-of-the-expressions-as-nicely-as-possible}}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{proof}{%
+\section{Proof}\label{proof}}
+
+\textbf{i. } The error can be express as
+\[ Q(a,b) = \sum_{i=1}^{n}(y_i-(a+bx_i))^2 \] To get the minimize the
+error \$ Q(a,b)\$, we need to take the derivative:
+\[\frac{\partial Q}{\partial b} = -2 \sum_{i=1}^{n}(y_i - b - ax_i) = 0\\
+\frac{\partial Q}{\partial a} = -2 \sum_{i=1}^{n}(y_i - b - ax_i)x_i = 0
+\] Then we have \[
+nb + n\bar{x}a = n\bar{y}\\
+n\bar{x}b + (\sum_{i=1}^{n}x_i^{2})a = \sum_{i=1}^{n}x_iy_i
+\] Solve the equations above, then we get: \[
+\hat{b} = \bar{y} - \hat{a}\bar{x}\\
+\hat{a} = \frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i - \bar{y})}{\sum_{i=1}^{n}(x_i - \bar{x})^2}
+\]
+
+    \_\_ ii. \_\_ \[
+\hat{a} = \frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i - \bar{y})}{\sum_{i=1}^{n}(x_i - \bar{x})^2} = \frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i - \bar{y})}{S_x^2} = \frac{S_y}{S_x} \times \frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i - \bar{y})}{S_x S_y}
+\]
+
+Take \(\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i - \bar{y})}{S_x S_y}\) as
+the correlation coefficient \(r\)
+
+Therefore, \(\hat{a}\) can be expressed by: \[
+\hat{a} = r(\frac{S_y}{S_x})
+\]
+
+    \hypertarget{two-extra-credit-points-fun-with-webscraping-text-manipulation}{%
+\section{Two Extra Credit Points: Fun with Webscraping \& Text
+manipulation}\label{two-extra-credit-points-fun-with-webscraping-text-manipulation}}
+
+\hypertarget{mandatory-for-grad-students}{%
+\subsubsection{(Mandatory for Grad
+students!)}\label{mandatory-for-grad-students}}
+
+    \texttt{NOTE:} \textbf{If you are a Graduate Section student (enrolled
+in 290), the Extra Credit Questions are mandatory.}
+
+    \hypertarget{statistics-in-presidential-debates}{%
+\subsection{1. Statistics in Presidential
+Debates}\label{statistics-in-presidential-debates}}
+
+Your first task is to scrape Presidential Debates from the Commission of
+Presidential Debates website:
+http://www.debates.org/index.php?page=debate-transcripts.
+
+To do this, you are not allowed to manually look up the URLs that you
+need, instead you have to scrape them. The root url to be scraped is the
+one listed above, namely:
+http://www.debates.org/index.php?page=debate-transcripts
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  By using \texttt{requests} and \texttt{BeautifulSoup} find all the
+  links / URLs on the website that links to transcriptions of
+  \textbf{First Presidential Debates} from the years {[}2012, 2008,
+  2004, 2000, 1996, 1988, 1984, 1976, 1960{]}. In total you should find
+  9 links / URLs tat fulfill this criteria.
+\item
+  When you have a list of the URLs your task is to create a Data Frame
+  with some statistics (see example of output below):
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Scrape the title of each link and use that as the column name in
+    your Data Frame.
+  \item
+    Count how long the transcript of the debate is (as in the number of
+    characters in transcription string). Feel free to include
+    \texttt{\textbackslash{}} characters in your count, but remove any
+    breakline characters, i.e. \texttt{\textbackslash{}n}. You will get
+    credit if your count is +/- 10\% from our result.
+  \item
+    Count how many times the word \textbf{war} was used in the different
+    debates. Note that you have to convert the text in a smart way (to
+    not count the word \textbf{warranty} for example, but counting
+    \textbf{war.}, \textbf{war!}, \textbf{war,} or \textbf{War} etc.
+  \item
+    Also scrape the most common used word in the debate, and write how
+    many times it was used. Note that you have to use the same strategy
+    as in 3 in order to do this.
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Tips:}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+In order to solve question 3 and 4 above it can be useful to work with
+Regular Expressions and explore methods on strings like
+\texttt{.strip(),\ .replace(),\ .find(),\ .count(),\ .lower()} etc. Both
+are very powerful tools to do string processing in Python. To count
+common words for example I used a \texttt{Counter} object and a Regular
+expression pattern for only words, see example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \ImportTok{from}\NormalTok{ collections }\ImportTok{import}\NormalTok{ Counter}
+    \ImportTok{import}\NormalTok{ re}
+
+\NormalTok{    counts }\OperatorTok{=}\NormalTok{ Counter(re.findall(}\VerbatimStringTok{r"[\textbackslash{}w']+"}\NormalTok{, text.lower()))}
+\end{Highlighting}
+\end{Shaded}
+
+Read more about Regular Expressions here:
+https://docs.python.org/3/howto/regex.html
+
+\textbf{Example output of all of the answers to EC Question 1:}
+
+\begin{figure}
+\centering
+\includegraphics{https://github.com/ikhlaqsidhu/data-x/raw/master/x-archive/misc/hw2_imgs_spring2018/president_stats.png}
+\caption{pres\_stats}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{k+kn}{import} \PY{n+nn}{requests}
+         \PY{k+kn}{import} \PY{n+nn}{bs4} \PY{k}{as} \PY{n+nn}{bs}
+         \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{Counter}
+         \PY{k+kn}{import} \PY{n+nn}{re}
+         \PY{k+kn}{import} \PY{n+nn}{operator}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{source} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://www.debates.org/index.php?page=debate\PYZhy{}transcripts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{soup} \PY{o}{=} \PY{n}{bs}\PY{o}{.}\PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{source}\PY{o}{.}\PY{n}{content}\PY{p}{,} \PY{n}{features} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{html.parser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{}  1. get the links we want}
+         
+         \PY{n}{links} \PY{o}{=} \PY{n}{soup}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{link\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{links}\PY{p}{:}
+         
+             \PY{k}{if} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{First}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{l}\PY{o}{.}\PY{n}{text}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Presidential}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{l}\PY{o}{.}\PY{n}{text}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Debate}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{l}\PY{o}{.}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Info about }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{l}\PY{o}{.}\PY{n}{text}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{href}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{link\PYZus{}dict}\PY{p}{[}\PY{n}{l}\PY{o}{.}\PY{n}{text}\PY{p}{]} \PY{o}{=} \PY{n}{l}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{href}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Info about October 3, 2012: The First Obama-Romney Presidential Debate: 
+http://www.debates.org/index.php?page=october-3-2012-debate-transcript
+Info about September 26, 2008: The First McCain-Obama Presidential Debate: 
+http://www.debates.org/index.php?page=2008-debate-transcript
+Info about September 30, 2004: The First Bush-Kerry Presidential Debate: 
+http://www.debates.org/index.php?page=september-30-2004-debate-transcript
+Info about October 3, 2000: The First Gore-Bush Presidential Debate: 
+http://www.debates.org/index.php?page=october-3-2000-transcript
+Info about October 6, 1996: The First Clinton-Dole Presidential Debate: 
+http://www.debates.org/index.php?page=october-6-1996-debate-transcript
+Info about September 25, 1988: The First Bush-Dukakis Presidential Debate: 
+http://www.debates.org/index.php?page=september-25-1988-debate-transcript
+Info about October 7, 1984: The First Reagan-Mondale Presidential Debate: 
+http://www.debates.org/index.php?page=october-7-1984-debate-transcript
+Info about September 23, 1976: The First Carter-Ford Presidential Debate: 
+http://www.debates.org/index.php?page=september-23-1976-debate-transcript
+Info about September 26, 1960: The First Kennedy-Nixon Presidential Debate: 
+http://www.debates.org/index.php?page=september-26-1960-debate-transcript
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}291}]:} \PY{c+c1}{\PYZsh{} 2. Get the information inside}
+          \PY{n}{debate\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Debate Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text\PYZus{}length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{war\PYZus{}count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{most\PYZus{}common\PYZus{}w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{most\PYZus{}common\PYZus{}w\PYZus{}count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{name} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{text\PYZus{}length} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{count} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{words} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{words\PYZus{}count} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{link\PYZus{}dict}\PY{p}{)}\PY{p}{:}
+              
+          \PY{c+c1}{\PYZsh{}     get the href}
+              \PY{n}{url} \PY{o}{=} \PY{n}{link\PYZus{}dict}\PY{p}{[}\PY{n}{l}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}     print(url)}
+              \PY{n}{debate\PYZus{}source} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+              \PY{n}{debate\PYZus{}soup} \PY{o}{=} \PY{n}{bs}\PY{o}{.}\PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{debate\PYZus{}source}\PY{o}{.}\PY{n}{content}\PY{p}{,} \PY{n}{features} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{html.parser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}     replace the whitespace, not included }
+              \PY{n}{pro\PYZus{}text} \PY{o}{=} \PY{n}{debate\PYZus{}soup}\PY{o}{.}\PY{n}{text}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}     what is wrong with the regular expression here? Can only use re.findall?}
+              \PY{n}{war\PYZus{}count} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{war[\PYZca{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{w]?[s ]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pro\PYZus{}text}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{}     return a dictionary of the count of each word}
+              \PY{n}{counts} \PY{o}{=} \PY{n}{Counter}\PY{p}{(}\PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{w}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{]+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pro\PYZus{}text}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}   sort the counts of the words and return a list of tuple}
+              \PY{n}{sort\PYZus{}counts} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{counts}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{key} \PY{o}{=} \PY{n}{operator}\PY{o}{.}\PY{n}{itemgetter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{reverse} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{most\PYZus{}commom\PYZus{}w} \PY{o}{=} \PY{n}{sort\PYZus{}counts}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{most\PYZus{}common\PYZus{}w\PYZus{}count} \PY{o}{=} \PY{n}{sort\PYZus{}counts}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}   store the value in the list}
+              \PY{n}{name}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+              \PY{n}{words}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{most\PYZus{}commom\PYZus{}w}\PY{p}{)}
+              \PY{n}{words\PYZus{}count}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{most\PYZus{}common\PYZus{}w\PYZus{}count}\PY{p}{)}
+              \PY{n}{text\PYZus{}length}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pro\PYZus{}text}\PY{p}{)}\PY{p}{)}
+              \PY{n}{count}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{war\PYZus{}count}\PY{p}{)}
+              
+          \PY{c+c1}{\PYZsh{} put it in the dataframe}
+          \PY{n}{debate\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Debate Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{name}
+          \PY{n}{debate\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text\PYZus{}length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{text\PYZus{}length}
+          \PY{n}{debate\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{war\PYZus{}count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{count}
+          \PY{n}{debate\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{most\PYZus{}common\PYZus{}w\PYZus{}count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{words\PYZus{}count}
+          \PY{n}{debate\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{most\PYZus{}common\PYZus{}w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{words}
+          \PY{c+c1}{\PYZsh{} why there are 2 columns of mos\PYZus{}common\PYZus{}words?                 }
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}292}]:} \PY{n}{debate\PYZus{}tf\PYZus{}T} \PY{o}{=} \PY{n}{debate\PYZus{}df}\PY{o}{.}\PY{n}{T}
+          \PY{n}{display}\PY{p}{(}\PY{n}{debate\PYZus{}tf\PYZus{}T}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                                                                     0  \
+Debate Name          October 3, 2012: The First Obama-Romney Presid...   
+text_length                                                      97939   
+war_count                                                            5   
+most_common_w                                                      the   
+most_common_w_count                                                758   
+
+                                                                     1  \
+Debate Name          September 26, 2008: The First McCain-Obama Pre...   
+text_length                                                     185262   
+war_count                                                           44   
+most_common_w                                                      the   
+most_common_w_count                                               1471   
+
+                                                                     2  \
+Debate Name          September 30, 2004: The First Bush-Kerry Presi...   
+text_length                                                      85560   
+war_count                                                           61   
+most_common_w                                                      the   
+most_common_w_count                                                858   
+
+                                                                     3  \
+Debate Name          October 3, 2000: The First Gore-Bush President...   
+text_length                                                      93895   
+war_count                                                           11   
+most_common_w                                                      the   
+most_common_w_count                                                920   
+
+                                                                     4  \
+Debate Name          October 6, 1996: The First Clinton-Dole Presid...   
+text_length                                                      95926   
+war_count                                                           15   
+most_common_w                                                      the   
+most_common_w_count                                                877   
+
+                                                                     5  \
+Debate Name          September 25, 1988: The First Bush-Dukakis Pre...   
+text_length                                                      90570   
+war_count                                                           14   
+most_common_w                                                      the   
+most_common_w_count                                                805   
+
+                                                                     6  \
+Debate Name          October 7, 1984: The First Reagan-Mondale Pres...   
+text_length                                                      89831   
+war_count                                                            3   
+most_common_w                                                      the   
+most_common_w_count                                                868   
+
+                                                                     7  \
+Debate Name          September 23, 1976: The First Carter-Ford Pres...   
+text_length                                                      83671   
+war_count                                                            5   
+most_common_w                                                      the   
+most_common_w_count                                                858   
+
+                                                                     8  
+Debate Name          September 26, 1960: The First Kennedy-Nixon Pr...  
+text_length                                                      63847  
+war_count                                                            3  
+most_common_w                                                      the  
+most_common_w_count                                                780  
+    \end{verbatim}
+
+    
+    \hypertarget{download-and-read-in-specific-line-from-many-data-sets}{%
+\subsection{2. Download and read in specific line from many data
+sets}\label{download-and-read-in-specific-line-from-many-data-sets}}
+
+Scrape the first 27 data sets from this URL
+http://people.sc.fsu.edu/\textasciitilde{}jburkardt/datasets/regression/
+(i.e.\texttt{x01.txt} - \texttt{x27.txt}). Then, save the 5th line in
+each data set, this should be the name of the data set author (get rid
+of the \texttt{\#} symbol, the white spaces and the comma at the end).
+
+Count how many times (with a Python function) each author is the
+reference for one of the 27 data sets. Showcase your results, sorted,
+with the most common author name first and how many times he appeared in
+data sets. Use a Pandas DataFrame to show your results, see example.
+
+\textbf{Example output of the answer EC Question 2:}
+
+\begin{figure}
+\centering
+\includegraphics{https://github.com/ikhlaqsidhu/data-x/raw/master/x-archive/misc/hw2_imgs_spring2018/data_authors.png}
+\caption{author\_stats}
+\end{figure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{people\PYZus{}source} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://people.sc.fsu.edu/\PYZti{}jburkardt/datasets/regression/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{content}
+          \PY{n}{people\PYZus{}soup} \PY{o}{=} \PY{n}{bs}\PY{o}{.}\PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{people\PYZus{}source}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{html.parser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{links} \PY{o}{=} \PY{n}{people\PYZus{}soup}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} get the position of the x01.txt}
+          \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{links}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{l}\PY{o}{.}\PY{n}{text} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x01.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{start} \PY{o}{=} \PY{n}{i}
+                  \PY{k}{break}
+          
+          \PY{n}{author} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{start}\PY{p}{,}\PY{n}{start}\PY{o}{+}\PY{l+m+mi}{27}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{href} \PY{o}{=} \PY{n}{links}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{href}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{text} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://people.sc.fsu.edu/\PYZti{}jburkardt/datasets/regression/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                                 \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{href}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{content}
+              \PY{n}{author}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{text}\PY{o}{.}\PY{n}{splitlines}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:} [b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    R J Freund and P D Minton,',
+           b'\#    D G Kleinbaum and L L Kupper,',
+           b'\#    Helmut Spaeth,',
+           b'\#    D G Kleinbaum and L L Kupper,',
+           b'\#    K A Brownlee,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    S Chatterjee and B Price,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    R J Freund and P D Minton,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    Helmut Spaeth,',
+           b'\#    S Chatterjee, B Price,',
+           b'\#    S Chatterjee, B Price,',
+           b'\#    S Chatterjee, B Price,',
+           b'\#    S C Narula, J F Wellington,',
+           b'\#    S C Narula, J F Wellington,']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{c+c1}{\PYZsh{} get the clean format of the name}
+          \PY{n}{author\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{author}\PY{p}{:}
+              \PY{n}{name\PYZus{}clean} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[\PYZca{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{w ]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{name}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf\PYZhy{}8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{:}\PY{p}{]}
+              \PY{n}{author\PYZus{}str}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{name\PYZus{}clean}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}167}]:} \PY{c+c1}{\PYZsh{} count the occurences of the name}
+          
+          \PY{n}{count\PYZus{}ref} \PY{o}{=} \PY{n}{Counter}\PY{p}{(}\PY{n}{author\PYZus{}str}\PY{p}{)}
+          \PY{n}{count\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{count\PYZus{}ref}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} create the dataframe using the dictionary got above and sort the values}
+          \PY{n}{count\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Authors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Counts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{count\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Authors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{count\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+          \PY{n}{count\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Counts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{count\PYZus{}dict}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}
+          \PY{n}{count\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Authors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{count\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Counts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{n}{display}\PY{p}{(}\PY{n}{count\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                              Counts
+Authors                             
+Helmut Spaeth                     16
+S Chatterjee B Price               3
+R J Freund and P D Minton          2
+D G Kleinbaum and L L Kupper       2
+S C Narula J F Wellington          2
+K A Brownlee                       1
+S Chatterjee and B Price           1
+    \end{verbatim}
+
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
